@@ -1,0 +1,41 @@
+import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Resume } from "./resume.entity";
+import { PortfolioItem } from "./portfolio-item.entity";
+
+
+@Entity('user')
+export class User {
+  @PrimaryGeneratedColumn()
+  id: number
+
+  @Column({ type: 'varchar', length: 64, nullable: false })
+  name: string
+
+  @Column({ type: 'varchar', length: 100, nullable: false })
+  email: string
+
+  @Column({ type: 'varchar', length: 64, nullable: false, select: false })
+  password: string;
+
+  @Column({ type: 'varchar', length: 64, nullable: false })
+  phone: string
+
+  @Column({ type: 'varchar', length: 128, nullable: false })
+  address: string
+
+  @Column({ type: 'text', nullable: true })
+  bio: string
+
+  @CreateDateColumn()
+  createdAt: Date;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  @OneToOne(() => Resume, (resume) => resume.user, { nullable: false })
+  @JoinColumn()
+  resume: Resume;
+
+  @OneToMany(() => PortfolioItem, (portfolioItems) => portfolioItems.user, { onDelete: 'CASCADE' })
+  portfolioItems: PortfolioItem[];
+}
