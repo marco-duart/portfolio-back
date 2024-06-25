@@ -1,6 +1,8 @@
-import { Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { BeforeInsert, Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import * as bcrypt from 'bcrypt';
 import { Resume } from "./resume.entity";
 import { PortfolioItem } from "./portfolio-item.entity";
+import { BadRequestException } from "@nestjs/common";
 
 
 @Entity('user')
@@ -38,4 +40,14 @@ export class User {
 
   @OneToMany(() => PortfolioItem, (portfolioItems) => portfolioItems.user, { onDelete: 'CASCADE' })
   portfolioItems: PortfolioItem[];
+
+  @BeforeInsert()
+  async hashPassword() {
+    try {
+      this.password = await bcrypt.hash(this.password, 10);
+    } catch (error) {
+      console.log(error);
+      throw new BadRequestException('Error with password hash.');
+    }
+  }
 }

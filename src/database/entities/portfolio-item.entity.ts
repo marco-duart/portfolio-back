@@ -1,5 +1,6 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 import { User } from "./user.entity";
+import { PortfolioItemPhoto } from "./portfolio-item-photo.entity";
 
 @Entity('portfolio_item')
 export class PortfolioItem {
@@ -8,9 +9,6 @@ export class PortfolioItem {
 
   @Column({ type: 'varchar', length: 64, nullable: false })
   name: string
-
-  @Column({ type: 'varchar', length: 128, nullable: false })
-  image_url: string
 
   @Column({ type: 'text', nullable: false })
   description: string
@@ -23,6 +21,9 @@ export class PortfolioItem {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @OneToMany(() => PortfolioItemPhoto, (photos) => photos.portfolio, { onDelete: 'CASCADE' })
+  photos: PortfolioItemPhoto[];
 
   @ManyToOne(() => User, (user) => user.portfolioItems)
   user: User;

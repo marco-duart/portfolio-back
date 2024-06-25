@@ -7,16 +7,16 @@ export class Experience {
   id: number
   
   @Column({ type: 'varchar', length: 64, nullable: false })
-  company_name: string
+  companyName: string
 
   @Column({ type: 'varchar', length: 64, nullable: false })
   role: string
 
  @Column({ type: 'date', nullable: false })
-  start_date: Date
+  startDate: Date
 
   @Column({ type: 'date', nullable: true })
-  end_date: Date
+  endDate: Date
 
   @Column({ type: 'text', nullable: false })
   description: string
