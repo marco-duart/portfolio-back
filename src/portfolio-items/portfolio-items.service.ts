@@ -6,6 +6,8 @@ import { PortfolioItem } from 'src/database/entities/portfolio-item.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { PortfolioItemPhoto } from 'src/database/entities/portfolio-item-photo.entity';
+import { UsersService } from 'src/users/users.service';
+import { SUCCESSFUL_MESSAGE } from 'src/enums/successful-message.enum';
 
 @Injectable()
 export class PortfolioItemsService {
@@ -14,15 +16,36 @@ export class PortfolioItemsService {
     private portfolioItemsRepository: Repository<PortfolioItem>,
     @InjectRepository(PortfolioItemPhoto)
     private portfolioItemPhotosRepository: Repository<PortfolioItemPhoto>,
+    private usersService: UsersService,
     private configService: ConfigService,
   ) {}
 
-  create(createPortfolioItemDto: CreatePortfolioItemDto) {
-    return 'This action adds a new portfolioItem';
+  async create(createPortfolioItemDto: CreatePortfolioItemDto) {
+    try {
+      const { userId, ...data } = createPortfolioItemDto;
+      const user = await this.usersService.findOne(userId);
+
+      const newPortfolioItem = this.portfolioItemsRepository.create(data);
+      newPortfolioItem.user = user;
+
+      await this.portfolioItemsRepository.save(newPortfolioItem);
+
+      return newPortfolioItem;
+    } catch (error) {
+      console.log(error);
+
+      throw new HttpException(error.message, error.status);
+    }
   }
 
-  findAll() {
-    return `This action returns all portfolioItems`;
+  async findAll() {
+    try {
+      return await this.portfolioItemsRepository.find();
+    } catch (error) {
+      console.log(error);
+
+      throw new HttpException(error.message, error.status);
+    }
   }
 
   async findOne(id: number) {
@@ -46,12 +69,32 @@ export class PortfolioItemsService {
   }
   }
 
-  update(id: number, updatePortfolioItemDto: UpdatePortfolioItemDto) {
-    return `This action updates a #${id} portfolioItem`;
+  async update(id: number, updatePortfolioItemDto: UpdatePortfolioItemDto) {
+    try {
+      await this.findOne(id);
+
+      await this.portfolioItemsRepository.update(id, updatePortfolioItemDto);
+
+      return await this.findOne(id);
+    } catch (error) {
+      console.log(error);
+
+      throw new HttpException(error.message, error.status);
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} portfolioItem`;
+  async remove(id: number) {
+    try {
+      await this.findOne(id);
+
+      await this.portfolioItemsRepository.delete(id);
+
+      return { message: SUCCESSFUL_MESSAGE.DELETE_PORTFOLIO_ITEM };
+    } catch (error) {
+      console.log(error);
+
+      throw new HttpException(error.message, error.status);
+    }
   }
 
   async uploadPhoto(id: number, photo: Express.Multer.File) {

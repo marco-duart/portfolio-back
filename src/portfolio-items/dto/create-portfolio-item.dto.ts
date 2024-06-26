@@ -3,7 +3,7 @@ import { IsNumber, IsNotEmpty, IsOptional, IsString } from "class-validator"
 export class CreatePortfolioItemDto {
   @IsNumber()
   @IsNotEmpty()
-  resumeId: number
+  userId: number
 
   @IsString()
   @IsNotEmpty()
