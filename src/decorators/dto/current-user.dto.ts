@@ -1,7 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
 
 export class CurrentUserDto {
-  user: number;
+  id: number;
 
   email: string;
 }

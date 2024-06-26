@@ -23,6 +23,6 @@ export class AuthController {
   @UseGuards(AuthGuard)
   @Get('me')
   me(@CurrentUser() user: CurrentUserDto) {
-    return this.authService.me(user.user);
+    return this.authService.me(user.id);
   }
 }
