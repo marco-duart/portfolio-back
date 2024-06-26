@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe } from '@nestjs/common';
 import { ResumesService } from './resumes.service';
 import { CreateResumeDto } from './dto/create-resume.dto';
 import { UpdateResumeDto } from './dto/update-resume.dto';
@@ -18,17 +18,17 @@ export class ResumesController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.resumesService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.resumesService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateResumeDto: UpdateResumeDto) {
-    return this.resumesService.update(+id, updateResumeDto);
+  update(@Param('id', ParseIntPipe) id: number, @Body() updateResumeDto: UpdateResumeDto) {
+    return this.resumesService.update(id, updateResumeDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.resumesService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.resumesService.remove(id);
   }
 }

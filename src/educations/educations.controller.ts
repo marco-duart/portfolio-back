@@ -1,12 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, ParseIntPipe } from '@nestjs/common';
 import { EducationsService } from './educations.service';
 import { CreateEducationDto } from './dto/create-education.dto';
 import { UpdateEducationDto } from './dto/update-education.dto';
+import { AuthGuard } from 'src/auth/guards/auth.guard';
 
 @Controller('educations')
 export class EducationsController {
   constructor(private readonly educationsService: EducationsService) {}
 
+  @UseGuards(AuthGuard)
   @Post()
   create(@Body() createEducationDto: CreateEducationDto) {
     return this.educationsService.create(createEducationDto);
@@ -18,17 +20,19 @@ export class EducationsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.educationsService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.educationsService.findOne(id);
   }
 
+  @UseGuards(AuthGuard)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateEducationDto: UpdateEducationDto) {
-    return this.educationsService.update(+id, updateEducationDto);
+  update(@Param('id', ParseIntPipe) id: number, @Body() updateEducationDto: UpdateEducationDto) {
+    return this.educationsService.update(id, updateEducationDto);
   }
 
+  @UseGuards(AuthGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.educationsService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.educationsService.remove(id);
   }
 }

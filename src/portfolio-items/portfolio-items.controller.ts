@@ -21,18 +21,18 @@ export class PortfolioItemsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.portfolioItemsService.findOne(+id);
+  findOne(@Param('id', ParseIntPipe) id: number) {
+    return this.portfolioItemsService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updatePortfolioItemDto: UpdatePortfolioItemDto) {
-    return this.portfolioItemsService.update(+id, updatePortfolioItemDto);
+  update(@Param('id', ParseIntPipe) id: number, @Body() updatePortfolioItemDto: UpdatePortfolioItemDto) {
+    return this.portfolioItemsService.update(id, updatePortfolioItemDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.portfolioItemsService.remove(+id);
+  remove(@Param('id', ParseIntPipe) id: number) {
+    return this.portfolioItemsService.remove(id);
   }
 
   @UseGuards(AuthGuard)
