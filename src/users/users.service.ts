@@ -23,7 +23,7 @@ export class UsersService {
 
       if (!user) {
         throw new NotFoundException(
-          `A user with this id: ${id} not found.`,
+          `An user with this id: ${id} not found.`,
         );
       }
 

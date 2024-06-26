@@ -51,7 +51,7 @@ export class ExperiencesService {
 
       if (!experience) {
         throw new NotFoundException(
-          `A experience with this id: ${id} not found.`,
+          `An experience with this id: ${id} not found.`,
         );
       }
 

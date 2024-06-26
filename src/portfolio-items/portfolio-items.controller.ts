@@ -6,7 +6,7 @@ import { FileInterceptor } from '@nestjs/platform-express';
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 import { diskStorage } from 'multer';
 
-@Controller('portfolio-items')
+@Controller('portfolio')
 export class PortfolioItemsController {
   constructor(private readonly portfolioItemsService: PortfolioItemsService) {}
 

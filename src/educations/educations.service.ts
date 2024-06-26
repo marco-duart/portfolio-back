@@ -51,7 +51,7 @@ export class EducationsService {
 
       if (!education) {
         throw new NotFoundException(
-          `A education with this id: ${id} not found.`,
+          `An education with this id: ${id} not found.`,
         );
       }
 
