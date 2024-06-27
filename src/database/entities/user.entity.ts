@@ -19,10 +19,10 @@ export class User {
   @Column({ type: 'varchar', length: 64, nullable: false, select: false })
   password: string;
 
-  @Column({ type: 'varchar', length: 64, nullable: false })
+  @Column({ type: 'varchar', length: 64, nullable: true })
   phone: string
 
-  @Column({ type: 'varchar', length: 128, nullable: false })
+  @Column({ type: 'varchar', length: 128, nullable: true })
   address: string
 
   @Column({ type: 'text', nullable: true })
@@ -34,7 +34,7 @@ export class User {
   @UpdateDateColumn()
   updatedAt: Date;
 
-  @OneToOne(() => Resume, (resume) => resume.user, { nullable: false })
+  @OneToOne(() => Resume, (resume) => resume.user)
   @JoinColumn()
   resume: Resume;
 
