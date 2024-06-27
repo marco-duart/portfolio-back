@@ -3,6 +3,7 @@ import { UpdateUserDto } from './dto/update-user.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { User } from 'src/database/entities/user.entity';
 import { Repository } from 'typeorm';
+import { SUCCESSFUL_MESSAGE } from 'src/enums/successful-message.enum';
 
 @Injectable()
 export class UsersService {
@@ -11,8 +12,14 @@ export class UsersService {
     private userRepository: Repository<User>
   ) {}
 
-  findAll() {
-    return `This action returns all users`;
+  async findAll() {
+    try {
+      return await this.userRepository.find();
+    } catch (error) {
+      console.log(error);
+
+      throw new HttpException(error.message, error.status);
+    }
   }
 
   async findOne(id: number) {
@@ -35,11 +42,32 @@ export class UsersService {
     }
   }
 
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  async update(id: number, updateUserDto: UpdateUserDto) {
+    try {
+      await this.findOne(id);
+
+      await this.userRepository.update(id, updateUserDto);
+
+      return await this.findOne(id);
+    } catch (error) {
+      console.log(error);
+
+      throw new HttpException(error.message, error.status);
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: number) {
+    try {
+      await this.findOne(id);
+
+      await this.userRepository.delete(id);
+
+      return { message: SUCCESSFUL_MESSAGE.DELETE_EDUCATION };
+    } catch (error) {
+      console.log(error);
+
+      throw new HttpException(error.message, error.status);
+    }
+  }
   }
 }
