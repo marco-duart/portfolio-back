@@ -4,6 +4,9 @@ export class CreateExperienceDto {
   @IsNumber()
   @IsNotEmpty()
   resumeId: number
+
+  @IsString()
+  @IsNotEmpty()
   companyName: string
 
   @IsString()
