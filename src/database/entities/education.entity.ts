@@ -13,13 +13,13 @@ export class Education {
   @Column({ type: 'enum', enum: EducationDegreeEnum, nullable: false })
   degree: EducationDegreeEnum
 
-  @Column({ type: 'date', nullable: true })
+  @Column({ type: 'date', nullable: false })
   startDate: Date
 
   @Column({ type: 'date', nullable: true })
   endDate: Date
 
-  @Column({ type: 'text', nullable: false })
+  @Column({ type: 'text', nullable: true })
   description: string
 
   @CreateDateColumn()

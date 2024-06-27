@@ -18,7 +18,7 @@ export class Experience {
   @Column({ type: 'date', nullable: true })
   endDate: Date
 
-  @Column({ type: 'text', nullable: false })
+  @Column({ type: 'text', nullable: true })
   description: string
 
   @CreateDateColumn()
