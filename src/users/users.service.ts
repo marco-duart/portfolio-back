@@ -9,7 +9,7 @@ import { SUCCESSFUL_MESSAGE } from 'src/enums/successful-message.enum';
 export class UsersService {
   constructor(
     @InjectRepository(User)
-    private userRepository: Repository<User>
+    private userRepository: Repository<User>,
   ) {}
 
   async findAll() {
@@ -29,9 +29,7 @@ export class UsersService {
       }); // VERIFICAR: SUBSTITUIR POR EXISTS?
 
       if (!user) {
-        throw new NotFoundException(
-          `An user with this id: ${id} not found.`,
-        );
+        throw new NotFoundException(`An user with this id: ${id} not found.`);
       }
 
       return user;
@@ -68,6 +66,5 @@ export class UsersService {
 
       throw new HttpException(error.message, error.status);
     }
-  }
   }
 }
