@@ -7,17 +7,13 @@ export class CreatePortfolioItemDto {
 
   @IsString()
   @IsNotEmpty()
-  role: string
+  name: string
 
   @IsString()
   @IsNotEmpty()
-  startDate: Date
+  description: Date
 
   @IsString()
   @IsOptional()
-  endDate: Date
-
-  @IsString()
-  @IsOptional()
-  description: string
+  technologies: Date
 }
