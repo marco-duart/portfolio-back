@@ -11,9 +11,9 @@ export class CreatePortfolioItemDto {
 
   @IsString()
   @IsNotEmpty()
-  description: Date
+  description: string
 
   @IsString()
   @IsOptional()
-  technologies: Date
+  technologies: string
 }
