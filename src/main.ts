@@ -3,13 +3,13 @@ import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
 import { ValidationPipe } from '@nestjs/common';
+import { NestExpressApplication } from '@nestjs/platform-express';
+import * as path from 'path';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create<NestExpressApplication>(AppModule);
 
   const configService = app.get(ConfigService);
-
-
 
   const swaggerConfig = new DocumentBuilder()
     .setTitle('Portfólio')
@@ -25,6 +25,8 @@ async function bootstrap() {
   app.enableCors({
     origin: '*',
   });
+
+  app.useStaticAssets(path.join(__dirname, '..', 'public'));
 
   await app.listen(configService.get('PORT') || 3000);
 }

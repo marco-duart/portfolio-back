@@ -5,4 +5,5 @@ export enum SUCCESSFUL_MESSAGE {
   DELETE_SKILL = "Skill deleted with success.",
   DELETE_RESUME = "Resume deleted with success.",
   DELETE_PORTFOLIO_ITEM = "Portfolio Item deleted with success.",
+  DELETE_PORTFOLIO_ITEM_PHOTO = "Photo deleted with success."
 }

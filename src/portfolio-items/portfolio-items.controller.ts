@@ -1,4 +1,16 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UploadedFile, ParseIntPipe, UseGuards, UseInterceptors } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Patch,
+  Param,
+  Delete,
+  UploadedFile,
+  ParseIntPipe,
+  UseGuards,
+  UseInterceptors,
+} from '@nestjs/common';
 import { PortfolioItemsService } from './portfolio-items.service';
 import { CreatePortfolioItemDto } from './dto/create-portfolio-item.dto';
 import { UpdatePortfolioItemDto } from './dto/update-portfolio-item.dto';
@@ -10,6 +22,7 @@ import { diskStorage } from 'multer';
 export class PortfolioItemsController {
   constructor(private readonly portfolioItemsService: PortfolioItemsService) {}
 
+  @UseGuards(AuthGuard)
   @Post()
   create(@Body() createPortfolioItemDto: CreatePortfolioItemDto) {
     return this.portfolioItemsService.create(createPortfolioItemDto);
@@ -25,11 +38,16 @@ export class PortfolioItemsController {
     return this.portfolioItemsService.findOne(id);
   }
 
+  @UseGuards(AuthGuard)
   @Patch(':id')
-  update(@Param('id', ParseIntPipe) id: number, @Body() updatePortfolioItemDto: UpdatePortfolioItemDto) {
+  update(
+    @Param('id', ParseIntPipe) id: number,
+    @Body() updatePortfolioItemDto: UpdatePortfolioItemDto,
+  ) {
     return this.portfolioItemsService.update(id, updatePortfolioItemDto);
   }
 
+  @UseGuards(AuthGuard)
   @Delete(':id')
   remove(@Param('id', ParseIntPipe) id: number) {
     return this.portfolioItemsService.remove(id);
@@ -39,7 +57,7 @@ export class PortfolioItemsController {
   @UseInterceptors(
     FileInterceptor('photo', {
       storage: diskStorage({
-        destination: './uploads',
+        destination: './public/uploads',
         filename: (req, file, cb) => {
           const name = file.originalname.split('.')[0];
           const extension = file.originalname.split('.')[1];
@@ -65,5 +83,11 @@ export class PortfolioItemsController {
     @UploadedFile() photo: Express.Multer.File,
   ) {
     return await this.portfolioItemsService.uploadPhoto(id, photo);
+  }
+
+  @UseGuards(AuthGuard)
+  @Delete('delete-photo/:photoId')
+  async deletePhoto(@Param('photoId', ParseIntPipe) photoId: number) {
+    return await this.portfolioItemsService.deletePhoto(photoId);
   }
 }

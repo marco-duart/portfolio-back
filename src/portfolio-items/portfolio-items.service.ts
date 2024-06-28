@@ -1,4 +1,9 @@
-import { BadRequestException, HttpException, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  HttpException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreatePortfolioItemDto } from './dto/create-portfolio-item.dto';
 import { UpdatePortfolioItemDto } from './dto/update-portfolio-item.dto';
 import { ConfigService } from '@nestjs/config';
@@ -8,6 +13,8 @@ import { Repository } from 'typeorm';
 import { PortfolioItemPhoto } from 'src/database/entities/portfolio-item-photo.entity';
 import { UsersService } from 'src/users/users.service';
 import { SUCCESSFUL_MESSAGE } from 'src/enums/successful-message.enum';
+import * as fs from 'fs';
+import * as path from 'path';
 
 @Injectable()
 export class PortfolioItemsService {
@@ -50,23 +57,25 @@ export class PortfolioItemsService {
 
   async findOne(id: number) {
     try {
-    const portfolioItem = await this.portfolioItemsRepository.findOne({
-      where: { id },
-      relations: {
-        photos: true,
-      },
-    });
+      const portfolioItem = await this.portfolioItemsRepository.findOne({
+        where: { id },
+        relations: {
+          photos: true,
+        },
+      });
 
-    if (!portfolioItem) {
-      throw new NotFoundException(`A portfolio item with this id: ${id} not found.`);
+      if (!portfolioItem) {
+        throw new NotFoundException(
+          `A portfolio item with this id: ${id} not found.`,
+        );
+      }
+
+      return portfolioItem;
+    } catch (error) {
+      console.log(error);
+
+      throw new HttpException(error.message, error.status);
     }
-
-    return portfolioItem
-  } catch (error) {
-    console.log(error);
-
-    throw new HttpException(error.message, error.status);
-  }
   }
 
   async update(id: number, updatePortfolioItemDto: UpdatePortfolioItemDto) {
@@ -105,12 +114,13 @@ export class PortfolioItemsService {
 
       const portfolioItem = await this.findOne(id);
 
-      const photoUrl = `${this.configService.get('BASE_URL')}portfolio/photos/${photo.filename}`;
+      const photoUrl = `${this.configService.get('BASE_URL')}/uploads/${photo.filename}`;
 
       const newPortfolioItemPhoto = this.portfolioItemPhotosRepository.create({
         photoUrl,
-        portfolio: { id: portfolioItem.id },
       });
+
+      newPortfolioItemPhoto.portfolio = portfolioItem;
 
       await this.portfolioItemPhotosRepository.save(newPortfolioItemPhoto);
 
@@ -120,5 +130,37 @@ export class PortfolioItemsService {
 
       throw new HttpException(error.message, error.status);
     }
+  }
+
+  async deletePhoto(photoId: number) {
+    const portfolioItemPhoto = await this.portfolioItemPhotosRepository.findOne(
+      {
+        where: { id: photoId },
+      },
+    );
+
+    if (!portfolioItemPhoto) {
+      throw new NotFoundException('Photo not found.');
+    }
+
+    const photoUrl = portfolioItemPhoto.photoUrl;
+    const filename = photoUrl.split('/').pop();
+
+    if (!filename) {
+      throw new Error('Invalid photo URL.');
+    }
+
+    const filePath = path.join('./public/uploads', filename);
+
+    try {
+      fs.unlinkSync(filePath);
+    } catch (error) {
+      console.error(`Error deleting file: ${error.message}`);
+      throw new Error('Failed to delete file.');
+    }
+
+    await this.portfolioItemPhotosRepository.delete(portfolioItemPhoto.id);
+
+    return { message: SUCCESSFUL_MESSAGE.DELETE_PORTFOLIO_ITEM_PHOTO };
   }
 }
