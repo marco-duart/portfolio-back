@@ -87,6 +87,7 @@ export class AuthService {
 
       return {
         token,
+        user
       };
     } catch (error) {
       throw new HttpException(
