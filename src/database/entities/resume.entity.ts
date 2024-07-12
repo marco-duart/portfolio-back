@@ -1,19 +1,27 @@
-import { Column, CreateDateColumn, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { User } from "./user.entity";
-import { Experience } from "./experience.entity";
-import { Education } from "./education.entity";
-import { Skill } from "./skill.entity";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { User } from './user.entity';
+import { Experience } from './experience.entity';
+import { Education } from './education.entity';
+import { Skill } from './skill.entity';
 
 @Entity('resume')
 export class Resume {
   @PrimaryGeneratedColumn()
-  id: number
+  id: number;
 
   @Column({ type: 'varchar', length: 64, nullable: false })
-  title: string
+  title: string;
 
   @Column({ type: 'text', nullable: false })
-  summary: string
+  summary: string;
 
   @CreateDateColumn()
   createdAt: Date;
@@ -24,10 +32,14 @@ export class Resume {
   @OneToOne(() => User, (user) => user.resume, { nullable: false })
   user: User;
 
-  @OneToMany(() => Experience, (experience) => experience.resume, { onDelete: 'CASCADE' })
+  @OneToMany(() => Experience, (experience) => experience.resume, {
+    onDelete: 'CASCADE',
+  })
   experiences: Experience[];
 
-  @OneToMany(() => Education, (education) => education.resume, { onDelete: 'CASCADE' })
+  @OneToMany(() => Education, (education) => education.resume, {
+    onDelete: 'CASCADE',
+  })
   educations: Education[];
 
   @OneToMany(() => Skill, (skill) => skill.resume, { onDelete: 'CASCADE' })

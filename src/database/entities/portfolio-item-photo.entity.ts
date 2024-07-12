@@ -1,5 +1,12 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { PortfolioItem } from "./portfolio-item.entity";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { PortfolioItem } from './portfolio-item.entity';
 
 @Entity('portfolio_item_photo')
 export class PortfolioItemPhoto {
@@ -7,7 +14,7 @@ export class PortfolioItemPhoto {
   id: number;
 
   @Column({ type: 'varchar', length: 128, nullable: false })
-  photoUrl: string
+  photoUrl: string;
 
   @CreateDateColumn()
   createdAt: Date;

@@ -1,6 +1,13 @@
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
-import { Resume } from "./resume.entity";
-import { SkillLevelEnum } from "src/enums/skill-level.enum";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
+import { Resume } from './resume.entity';
+import { SkillLevelEnum } from 'src/enums/skill-level.enum';
 
 @Entity('skill')
 export class Skill {
@@ -8,10 +15,10 @@ export class Skill {
   id: number;
 
   @Column({ type: 'varchar', length: 64, nullable: false })
-  name: string
+  name: string;
 
   @Column({ type: 'enum', enum: SkillLevelEnum, nullable: false })
-  level: SkillLevelEnum
+  level: SkillLevelEnum;
 
   @CreateDateColumn()
   createdAt: Date;

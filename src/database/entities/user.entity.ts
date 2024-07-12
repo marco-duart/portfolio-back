@@ -1,32 +1,41 @@
-import { BeforeInsert, Column, CreateDateColumn, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import {
+  BeforeInsert,
+  Column,
+  CreateDateColumn,
+  Entity,
+  JoinColumn,
+  OneToMany,
+  OneToOne,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from 'typeorm';
 import * as bcrypt from 'bcrypt';
-import { Resume } from "./resume.entity";
-import { PortfolioItem } from "./portfolio-item.entity";
-import { BadRequestException } from "@nestjs/common";
-
+import { Resume } from './resume.entity';
+import { PortfolioItem } from './portfolio-item.entity';
+import { BadRequestException } from '@nestjs/common';
 
 @Entity('user')
 export class User {
   @PrimaryGeneratedColumn()
-  id: number
+  id: number;
 
   @Column({ type: 'varchar', length: 64, nullable: false })
-  name: string
+  name: string;
 
   @Column({ type: 'varchar', length: 100, nullable: false })
-  email: string
+  email: string;
 
   @Column({ type: 'varchar', length: 64, nullable: false, select: false })
   password: string;
 
   @Column({ type: 'varchar', length: 64, nullable: true })
-  phone: string
+  phone: string;
 
   @Column({ type: 'varchar', length: 128, nullable: true })
-  address: string
+  address: string;
 
   @Column({ type: 'text', nullable: true })
-  bio: string
+  bio: string;
 
   @CreateDateColumn()
   createdAt: Date;
@@ -38,7 +47,9 @@ export class User {
   @JoinColumn()
   resume: Resume;
 
-  @OneToMany(() => PortfolioItem, (portfolioItems) => portfolioItems.user, { onDelete: 'CASCADE' })
+  @OneToMany(() => PortfolioItem, (portfolioItems) => portfolioItems.user, {
+    onDelete: 'CASCADE',
+  })
   portfolioItems: PortfolioItem[];
 
   @BeforeInsert()
