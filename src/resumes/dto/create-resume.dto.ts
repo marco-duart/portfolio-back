@@ -1,15 +1,15 @@
-import { IsNumber, IsNotEmpty, IsString } from "class-validator"
+import { IsNumber, IsNotEmpty, IsString } from 'class-validator';
 
 export class CreateResumeDto {
   @IsNumber()
   @IsNotEmpty()
-  userId: number
+  userId: number;
 
   @IsString()
   @IsNotEmpty()
-  title: string
+  title: string;
 
   @IsString()
   @IsNotEmpty()
-  summary: string
+  summary: string;
 }

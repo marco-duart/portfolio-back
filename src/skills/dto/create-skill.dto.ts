@@ -1,17 +1,16 @@
-import { IsNumber, IsNotEmpty, IsString } from "class-validator"
-import { SkillLevelEnum } from "src/enums/skill-level.enum";
-
+import { IsNumber, IsNotEmpty, IsString } from 'class-validator';
+import { SkillLevelEnum } from 'src/enums/skill-level.enum';
 
 export class CreateSkillDto {
   @IsNumber()
   @IsNotEmpty()
-  resumeId: number
+  resumeId: number;
 
   @IsString()
   @IsNotEmpty()
-  name: string
+  name: string;
 
   @IsString()
   @IsNotEmpty()
-  level: SkillLevelEnum
+  level: SkillLevelEnum;
 }

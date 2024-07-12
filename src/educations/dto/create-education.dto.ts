@@ -1,28 +1,28 @@
-import { IsNumber, IsNotEmpty, IsOptional, IsString } from "class-validator"
-import { EducationDegreeEnum } from "src/enums/education-degree.enum"
+import { IsNumber, IsNotEmpty, IsOptional, IsString } from 'class-validator';
+import { EducationDegreeEnum } from 'src/enums/education-degree.enum';
 
 export class CreateEducationDto {
   @IsNumber()
   @IsNotEmpty()
-  resumeId: number
+  resumeId: number;
 
   @IsString()
   @IsNotEmpty()
-  institutionName: string
+  institutionName: string;
 
   @IsString()
   @IsNotEmpty()
-  degree: EducationDegreeEnum
+  degree: EducationDegreeEnum;
 
   @IsString()
   @IsNotEmpty()
-  startDate: Date
+  startDate: Date;
 
   @IsString()
   @IsOptional()
-  endDate: Date
+  endDate: Date;
 
   @IsString()
   @IsOptional()
-  description: string
+  description: string;
 }

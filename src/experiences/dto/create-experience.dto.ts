@@ -1,27 +1,27 @@
-import { IsNotEmpty, IsNumber, IsOptional, IsString } from "class-validator"
+import { IsNotEmpty, IsNumber, IsOptional, IsString } from 'class-validator';
 
 export class CreateExperienceDto {
   @IsNumber()
   @IsNotEmpty()
-  resumeId: number
+  resumeId: number;
 
   @IsString()
   @IsNotEmpty()
-  companyName: string
+  companyName: string;
 
   @IsString()
   @IsNotEmpty()
-  role: string
+  role: string;
 
   @IsString()
   @IsNotEmpty()
-  startDate: Date
+  startDate: Date;
 
   @IsString()
   @IsOptional()
-  endDate: Date
+  endDate: Date;
 
   @IsString()
   @IsOptional()
-  description: string
+  description: string;
 }

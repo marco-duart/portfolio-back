@@ -1,19 +1,19 @@
-import { IsNumber, IsNotEmpty, IsOptional, IsString } from "class-validator"
+import { IsNumber, IsNotEmpty, IsOptional, IsString } from 'class-validator';
 
 export class CreatePortfolioItemDto {
   @IsNumber()
   @IsNotEmpty()
-  userId: number
+  userId: number;
 
   @IsString()
   @IsNotEmpty()
-  name: string
+  name: string;
 
   @IsString()
   @IsNotEmpty()
-  description: string
+  description: string;
 
   @IsString()
   @IsOptional()
-  technologies: string
+  technologies: string;
 }
