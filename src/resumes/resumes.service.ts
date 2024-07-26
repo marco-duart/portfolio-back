@@ -33,19 +33,9 @@ export class ResumesService {
     }
   }
 
-  async findAll() {
-    try {
-      return await this.resumeRepository.find();
-    } catch (error) {
-      console.log(error);
-
-      throw new HttpException(error.message, error.status);
-    }
-  }
-
   async findOne(id: number) {
     try {
-      const resume = await this.resumeRepository.findOne({ where: { id } });
+      const resume = await this.resumeRepository.findOne({ where: { user: { id } } });
 
       if (!resume) {
         throw new NotFoundException(`A resume with this id: ${id} not found.`);

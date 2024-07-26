@@ -2,6 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, UseGua
 import { ResumesService } from './resumes.service';
 import { CreateResumeDto } from './dto/create-resume.dto';
 import { UpdateResumeDto } from './dto/update-resume.dto';
+import { GetResumeDto } from './dto/get-resume.dto'
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 
 @Controller('resumes')
@@ -15,13 +16,8 @@ export class ResumesController {
   }
 
   @Get()
-  findAll() {
-    return this.resumesService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number) {
-    return this.resumesService.findOne(id);
+  findOne(@Body() getResumeDto: GetResumeDto) {
+    return this.resumesService.findOne(getResumeDto.userId);
   }
 
   @UseGuards(AuthGuard)
