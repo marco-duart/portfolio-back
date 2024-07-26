@@ -1,8 +1,7 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, UseGuards } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, ParseIntPipe, UseGuards, Query } from '@nestjs/common';
 import { ResumesService } from './resumes.service';
 import { CreateResumeDto } from './dto/create-resume.dto';
 import { UpdateResumeDto } from './dto/update-resume.dto';
-import { GetResumeDto } from './dto/get-resume.dto'
 import { AuthGuard } from 'src/auth/guards/auth.guard';
 
 @Controller('resumes')
@@ -16,8 +15,8 @@ export class ResumesController {
   }
 
   @Get()
-  findOne(@Body() getResumeDto: GetResumeDto) {
-    return this.resumesService.findOne(getResumeDto.userId);
+  findOne(@Query('userId', ParseIntPipe) userId: number) {
+    return this.resumesService.findOne(userId);
   }
 
   @UseGuards(AuthGuard)
