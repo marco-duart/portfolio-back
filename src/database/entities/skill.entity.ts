@@ -8,6 +8,7 @@ import {
 } from 'typeorm';
 import { Resume } from './resume.entity';
 import { SkillLevelEnum } from 'src/enums/skill-level.enum';
+import { SkillCategoryEnum } from 'src/enums/skill-category.enum';
 
 @Entity('skill')
 export class Skill {
@@ -19,6 +20,12 @@ export class Skill {
 
   @Column({ type: 'enum', enum: SkillLevelEnum, nullable: false })
   level: SkillLevelEnum;
+
+  @Column({ type: 'enum', enum: SkillCategoryEnum, nullable: false })
+  category: SkillCategoryEnum;
+
+  @Column({ type: 'varchar', length: 2048, nullable: false })
+  link: string;
 
   @CreateDateColumn()
   createdAt: Date;
