@@ -47,7 +47,9 @@ export class PortfolioItemsService {
 
   async findAll() {
     try {
-      return await this.portfolioItemsRepository.find();
+      return await this.portfolioItemsRepository.find({ relations: {
+        photos: true
+      } });
     } catch (error) {
       console.log(error);
 
