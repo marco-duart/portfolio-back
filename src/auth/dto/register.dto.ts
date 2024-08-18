@@ -55,5 +55,9 @@ export class RegisterDto {
 
   @IsString()
   @IsOptional()
+  bioTitle: string;
+
+  @IsString()
+  @IsOptional()
   bio: string;
 }

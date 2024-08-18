@@ -58,6 +58,9 @@ export class User {
   @Column({ type: 'varchar', length: 128, nullable: true })
   address: string;
 
+  @Column({ type: 'varchar', length: 64, nullable: true })
+  bioTitle: string;
+
   @Column({ type: 'text', nullable: true })
   bio: string;
 
