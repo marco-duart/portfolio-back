@@ -34,6 +34,9 @@ export class User {
   @Column({ type: 'varchar', length: 64, nullable: true })
   phone: string;
 
+  @Column({ type: 'varchar', length: 64, nullable: true })
+  whatsapp: string;
+
   @Column({ type: 'varchar', length: 100, nullable: true })
   github: string
 

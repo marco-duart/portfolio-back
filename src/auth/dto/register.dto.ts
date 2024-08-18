@@ -23,6 +23,10 @@ export class RegisterDto {
 
   @IsString()
   @IsOptional()
+  whatsapp: string;
+
+  @IsString()
+  @IsOptional()
   github: string;
 
   @IsString()
