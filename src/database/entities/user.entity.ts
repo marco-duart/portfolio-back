@@ -25,11 +25,35 @@ export class User {
   @Column({ type: 'varchar', length: 100, nullable: false })
   email: string;
 
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  businessEmail: string
+
   @Column({ type: 'varchar', length: 64, nullable: false, select: false })
   password: string;
 
   @Column({ type: 'varchar', length: 64, nullable: true })
   phone: string;
+
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  github: string
+
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  linkedin: string
+
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  instagram: string
+
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  twitter: string
+
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  google: string
+
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  youtube: string
+
+  @Column({ type: 'varchar', length: 100, nullable: true })
+  facebook: string
 
   @Column({ type: 'varchar', length: 128, nullable: true })
   address: string;

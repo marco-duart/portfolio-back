@@ -9,6 +9,10 @@ export class RegisterDto {
   @IsNotEmpty()
   email: string;
 
+  @IsEmail()
+  @IsOptional()
+  businessEmail: string;
+
   @IsString()
   @IsNotEmpty()
   password: string;
@@ -16,6 +20,34 @@ export class RegisterDto {
   @IsString()
   @IsOptional()
   phone: string;
+
+  @IsString()
+  @IsOptional()
+  github: string;
+
+  @IsString()
+  @IsOptional()
+  linkedin: string;
+
+  @IsString()
+  @IsOptional()
+  instagram: string;
+
+  @IsString()
+  @IsOptional()
+  twitter: string;
+
+  @IsString()
+  @IsOptional()
+  google: string;
+
+  @IsString()
+  @IsOptional()
+  youtube: string;
+
+  @IsString()
+  @IsOptional()
+  facebook: string;
 
   @IsString()
   @IsOptional()
