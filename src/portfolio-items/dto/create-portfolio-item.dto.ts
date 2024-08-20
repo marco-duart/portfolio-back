@@ -10,6 +10,10 @@ export class CreatePortfolioItemDto {
   name: string;
 
   @IsString()
+  @IsOptional()
+  link: string;
+
+  @IsString()
   @IsNotEmpty()
   description: string;
 

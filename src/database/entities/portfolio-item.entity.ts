@@ -24,6 +24,9 @@ export class PortfolioItem {
   @Column({ type: 'varchar', length: 128, nullable: false })
   technologies: string;
 
+  @Column({ type: "varchar", length: 2048, nullable: true})
+  link: string;
+
   @CreateDateColumn()
   createdAt: Date;
 
