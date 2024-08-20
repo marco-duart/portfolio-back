@@ -24,7 +24,7 @@ export class Skill {
   @Column({ type: 'enum', enum: SkillCategoryEnum, nullable: false })
   category: SkillCategoryEnum;
 
-  @Column({ type: 'varchar', length: 2048, nullable: false })
+  @Column({ type: 'varchar', length: 16300, nullable: false })
   link: string;
 
   @CreateDateColumn()
