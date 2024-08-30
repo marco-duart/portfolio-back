@@ -35,7 +35,11 @@ export class ExperiencesService {
 
   async findAll() {
     try {
-      return await this.experienceRepository.find();
+      return await this.experienceRepository.find({
+        order: {
+          startDate: 'ASC',
+        },
+      });
     } catch (error) {
       console.log(error);
 

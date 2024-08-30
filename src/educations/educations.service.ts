@@ -35,7 +35,11 @@ export class EducationsService {
 
   async findAll() {
     try {
-      return await this.educationRepository.find();
+      return await this.educationRepository.find({
+        order: {
+          startDate: 'ASC',
+        },
+      });
     } catch (error) {
       console.log(error);
 
