@@ -17,8 +17,11 @@ export class Education {
   @Column({ type: 'varchar', length: 64, nullable: false })
   institutionName: string;
 
+  @Column({ type: 'varchar', length: 64, nullable: false })
+  degree: string;
+
   @Column({ type: 'enum', enum: EducationDegreeEnum, nullable: false })
-  degree: EducationDegreeEnum;
+  degreeLevel: EducationDegreeEnum;
 
   @Column({ type: 'date', nullable: false })
   startDate: Date;

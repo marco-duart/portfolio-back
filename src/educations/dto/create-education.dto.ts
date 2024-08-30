@@ -12,7 +12,11 @@ export class CreateEducationDto {
 
   @IsString()
   @IsNotEmpty()
-  degree: EducationDegreeEnum;
+  degree: string;
+
+  @IsString()
+  @IsNotEmpty()
+  degreeLevel: EducationDegreeEnum;
 
   @IsString()
   @IsNotEmpty()
