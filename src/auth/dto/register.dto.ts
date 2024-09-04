@@ -39,7 +39,7 @@ export class RegisterDto {
 
   @IsString()
   @IsOptional()
-  twitter: string;
+  threads: string;
 
   @IsString()
   @IsOptional()

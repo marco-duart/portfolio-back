@@ -47,7 +47,7 @@ export class User {
   instagram: string
 
   @Column({ type: 'varchar', length: 100, nullable: true })
-  twitter: string
+  threads: string
 
   @Column({ type: 'varchar', length: 100, nullable: true })
   google: string
